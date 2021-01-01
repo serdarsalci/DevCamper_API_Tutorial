@@ -4,23 +4,21 @@ const errorHandler = (err, req, res, next) => {
 	let error = { ...err };
 	error.message = err.message;
 
-	// Log to console for dev
-
 	// Mongoose bad ObjectId
 	if (err.name === 'CastError') {
 		const messsage = `Resource not found with id of ${err.value}`;
 		error = new ErrorResponse(messsage, 404);
 	}
 
-	// console.log(err);
-	console.log(Object.keys(err.keyValue)[0]);
-	console.log(err.keyPattern);
-
 	// Mongoose duplicate key
 	if (err.code === 11000) {
-		const message = `Duplicate field value entered ${JSON.stringify(
-			err.keyValue
-		)} taken`;
+		const message = `Duplicatate key error. A resource with same property already exist.`;
+		error = new ErrorResponse(message, 400);
+	}
+
+	// Mongoose validation error
+	if (err.name === 'ValidationError') {
+		const message = Object.values(err.errors).map(val => val.message);
 		error = new ErrorResponse(message, 400);
 	}
 
