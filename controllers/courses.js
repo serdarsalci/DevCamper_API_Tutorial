@@ -7,7 +7,6 @@ const Bootcamp = require('../models/Bootcamp');
 // @route         Get/api/v1/courses
 // @route         Get/api/v1/bootcamps/:bootcampId/courses
 // @access        Public
-
 exports.getCourses = asyncHandler(async (req, res, next) => {
 	if (req.params.bootcampId) {
 		const courses = await Course.find({ bootcamp: req.params.bootcampId });
@@ -24,7 +23,6 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 // @description   Get a Single course
 // @route         Get/api/v1/courses/:id
 // @access        Public
-
 exports.getCourse = asyncHandler(async (req, res, next) => {
 	const course = await Course.findById(req.params.id).populate({
 		path: 'bootcamp',
@@ -71,7 +69,6 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
 // @description   Update a course
 // @route         Put/api/v1/courses/:id
 // @access        Private
-
 exports.updateCourse = asyncHandler(async (req, res, next) => {
 	let course = await Course.findById(req.params.id);
 
@@ -95,7 +92,6 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 // @description   Delete a course
 // @route         Delete/api/v1/courses/:id
 // @access        Private
-
 exports.deleteCourse = asyncHandler(async (req, res, next) => {
 	const course = await Course.findById(req.params.id);
 
