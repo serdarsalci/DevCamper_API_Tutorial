@@ -3,7 +3,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 	//  Copy req.query
 	const reqQuery = { ...req.query };
 
+	console.log('******');
 	console.log(reqQuery);
+	console.log('******');
 
 	console.log('advanced results middleware called');
 
@@ -12,8 +14,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
 	// Loop over removeFields and delete them from reqQuery
 	removeFields.forEach(param => delete reqQuery[param]);
-
-	console.log(reqQuery);
 
 	// Create query string
 	let queryStr = JSON.stringify(reqQuery);
