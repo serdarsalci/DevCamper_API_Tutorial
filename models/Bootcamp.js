@@ -153,4 +153,7 @@ BootcampSchema.virtual('courses', {
 	justOne: false,
 });
 
+BootcampSchema.set('toObject', { virtuals: true });
+BootcampSchema.set('toString', { virtuals: true });
+
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
