@@ -42,8 +42,8 @@ const importData = async () => {
 	try {
 		await Bootcamp.create(bootcamps);
 		await Course.create(courses);
-		await User.create(users);
 		await Review.create(reviews);
+		await User.create(users);
 		console.log('Data imported... '.green.inverse);
 		process.exit();
 	} catch (err) {
