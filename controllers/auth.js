@@ -60,6 +60,20 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 	});
 });
 
+// @description   Log user out and / clear cookie
+// @route         GET/api/v1/auth/logout
+// @access        Private
+exports.logOut = asyncHandler(async (req, res, next) => {
+	res.cookie('token', 'none', {
+		expires: new Date(Date.now() + 100 * 1000),
+		httpOnly: true,
+	});
+	res.status(200).json({
+		success: true,
+		data: {},
+	});
+});
+
 // @description   Update user details
 // @route         PUT/api/v1/auth/updatedetails
 // @access        Private
@@ -137,7 +151,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 	}
 });
 
-// Get token from model, create cookie and send responser
+// Get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
 	const token = user.getSignedJwtToken();
 	const options = {
@@ -153,6 +167,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 	res
 		.status(statusCode)
 		.cookie('token', token, options)
+		.cookie('testoken', 'thisisatestToken', options)
 		.json({ success: true, token });
 };
 

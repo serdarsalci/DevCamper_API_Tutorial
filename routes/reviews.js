@@ -31,6 +31,6 @@ router
 	.put(protect, authorize('user', 'admin'), updateReview)
 	.delete(protect, authorize('user', 'admin'), deleteReview);
 
-router.copy('/myreviews', protect, getMyReviews);
+router.route('/myreviews').copy(protect, getMyReviews);
 
 module.exports = router;

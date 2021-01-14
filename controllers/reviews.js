@@ -12,9 +12,6 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
 	if (req.params.bootcampId) {
 		const reviews = await Review.find({
 			bootcamp: req.params.bootcampId,
-		}).populate({
-			path: 'user',
-			select: 'name',
 		});
 		return res.status(200).json({
 			success: true,
@@ -33,7 +30,15 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
 // @access        Private
 exports.getMyReviews = asyncHandler(async (req, res, next) => {
 	console.log('getMyReviews hit');
-	const reviews = await Review.find({ user: req.user.id });
+	const reviews = await Review.find({ user: req.user.id })
+		.populate({
+			path: 'bootcamp',
+			select: 'name description',
+		})
+		.populate({
+			path: 'user',
+			select: 'name role',
+		});
 	return res.status(200).json({
 		success: true,
 		count: reviews.length,
